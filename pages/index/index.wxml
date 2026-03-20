@@ -1,0 +1,81 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 左侧分类栏 -->
+  <view class="sidebar">
+    <view
+      wx:for="{{categories}}"
+      wx:key="key"
+      class="category-item {{currentCategory === item.key ? 'active' : ''}}"
+      data-category="{{item.key}}"
+      bindtap="switchCategory"
+    >
+      <text class="category-icon">{{item.icon}}</text>
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 右侧内容区 -->
+  <view class="main-content">
+    <!-- 顶部筛选栏 -->
+    <view class="filter-bar">
+      <view class="filter-left">
+        <text class="dish-count">共 {{dishes.length}} 道菜</text>
+      </view>
+      <view class="filter-btn" bindtap="toggleFilter">
+        <text class="filter-icon">🔽</text>
+        <text>筛选</text>
+      </view>
+    </view>
+
+    <!-- 筛选面板 -->
+    <view class="filter-panel {{showFilter ? 'show' : ''}}">
+      <view class="filter-tags">
+        <view
+          wx:for="{{filterTags}}"
+          wx:key="key"
+          class="filter-tag {{item.selected ? 'selected' : ''}}"
+          data-tag="{{item.key}}"
+          bindtap="selectTag"
+        >
+          {{item.name}}
+        </view>
+      </view>
+      <view class="filter-actions">
+        <view class="clear-btn" bindtap="clearFilter">清除</view>
+      </view>
+    </view>
+
+    <!-- 菜品列表 -->
+    <scroll-view scroll-y class="dish-list">
+      <view
+        wx:for="{{dishes}}"
+        wx:key="id"
+        class="dish-card"
+        data-dish="{{item}}"
+        bindtap="goToDetail"
+      >
+        <image class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="dish-info">
+          <text class="dish-name">{{item.name}}</text>
+          <view class="dish-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+            <text
+              wx:for="{{item.tags}}"
+              wx:for-item="tag"
+              wx:key="*this"
+              class="dish-tag tag-{{tag === '偏辣' ? 'spicy' : tag === '偏酸' ? 'sour' : 'sweet'}}"
+            >
+              {{tag}}
+            </text>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+
+      <!-- 空状态 -->
+      <view wx:if="{{dishes.length === 0}}" class="empty-state">
+        <text class="empty-icon">🍽️</text>
+        <text class="empty-text">暂无符合条件的菜品</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

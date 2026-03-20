@@ -1,0 +1,108 @@
+<!--pages/detail/detail.wxml-->
+<view class="container" wx:if="{{dish}}">
+  <!-- 菜品图片 -->
+  <view class="dish-header">
+    <image
+      class="dish-image"
+      src="{{dish.image}}"
+      mode="aspectFill"
+      bindtap="previewImage"
+    ></image>
+    <view class="dish-tags" wx:if="{{dish.tags && dish.tags.length > 0}}">
+      <text
+        wx:for="{{dish.tags}}"
+        wx:key="*this"
+        class="dish-tag tag-{{item === '偏辣' ? 'spicy' : item === '偏酸' ? 'sour' : 'sweet'}}"
+      >
+        {{item}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 菜品信息 -->
+  <view class="dish-content">
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">📝 简介</text>
+      </view>
+      <view class="section-body">
+        <text class="description">{{dish.description}}</text>
+      </view>
+    </view>
+
+    <!-- 食材 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">🥬 食材</text>
+        <text class="copy-btn" bindtap="copyIngredients">复制</text>
+      </view>
+      <view class="section-body">
+        <view class="ingredients-list">
+          <view
+            wx:for="{{dish.ingredients}}"
+            wx:key="*this"
+            class="ingredient-item"
+          >
+            <text class="ingredient-dot">•</text>
+            <text class="ingredient-name">{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 制作步骤 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">👨‍🍳 做法</text>
+        <text class="step-indicator">{{currentStep + 1}}/{{dish.steps.length}}</text>
+      </view>
+      <view class="section-body">
+        <view class="step-card">
+          <view class="step-number">{{currentStep + 1}}</view>
+          <text class="step-text">{{dish.steps[currentStep]}}</text>
+        </view>
+
+        <view class="step-actions" wx:if="{{dish.steps.length > 1}}">
+          <view
+            class="step-btn {{currentStep === 0 ? 'disabled' : ''}}"
+            bindtap="prevStep"
+          >
+            上一步
+          </view>
+          <view
+            class="step-btn primary {{currentStep === dish.steps.length - 1 ? 'disabled' : ''}}"
+            bindtap="nextStep"
+          >
+            下一步
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 步骤列表 -->
+    <view class="section" wx:if="{{dish.steps.length > 1}}">
+      <view class="section-header">
+        <text class="section-title">📋 全部步骤</text>
+      </view>
+      <view class="section-body">
+        <view class="steps-list">
+          <view
+            wx:for="{{dish.steps}}"
+            wx:key="index"
+            class="step-item {{currentStep === index ? 'active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectStep"
+          >
+            <view class="step-num">{{index + 1}}</view>
+            <text class="step-content">{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading" wx:if="{{!dish}}">
+  <text>加载中...</text>
+</view>

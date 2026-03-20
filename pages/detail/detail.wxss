@@ -1,0 +1,231 @@
+/* pages/detail/detail.wxss */
+
+.container {
+  min-height: 100vh;
+  background-color: #F5F5F5;
+}
+
+/* 菜品头部 */
+.dish-header {
+  position: relative;
+}
+
+.dish-image {
+  width: 100%;
+  height: 400rpx;
+}
+
+.dish-tags {
+  position: absolute;
+  bottom: 20rpx;
+  left: 20rpx;
+  display: flex;
+  gap: 12rpx;
+}
+
+.dish-tag {
+  font-size: 24rpx;
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.tag-spicy {
+  color: #FF4500;
+}
+
+.tag-sour {
+  color: #DAA520;
+}
+
+.tag-sweet {
+  color: #FF69B4;
+}
+
+/* 内容区 */
+.dish-content {
+  padding: 20rpx;
+}
+
+/* 区块 */
+.section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.copy-btn {
+  font-size: 26rpx;
+  color: #FF6B35;
+  padding: 8rpx 20rpx;
+  border: 1rpx solid #FF6B35;
+  border-radius: 30rpx;
+}
+
+.step-indicator {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.section-body {
+  padding: 24rpx;
+}
+
+/* 描述 */
+.description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 食材列表 */
+.ingredients-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ingredient-item {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.ingredient-dot {
+  color: #FF6B35;
+  margin-right: 10rpx;
+}
+
+.ingredient-name {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 步骤卡片 */
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 24rpx;
+  background-color: #FFF9F5;
+  border-radius: 12rpx;
+}
+
+.step-number {
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #FF6B35;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
+
+.step-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  flex: 1;
+}
+
+/* 步骤操作 */
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  gap: 20rpx;
+}
+
+.step-btn {
+  flex: 1;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 40rpx;
+}
+
+.step-btn.primary {
+  background-color: #FF6B35;
+  color: #fff;
+}
+
+.step-btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 步骤列表 */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  transition: background-color 0.3s;
+}
+
+.step-item.active {
+  background-color: #FFF9F5;
+}
+
+.step-num {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #f5f5f5;
+  color: #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.step-item.active .step-num {
+  background-color: #FF6B35;
+  color: #fff;
+}
+
+.step-content {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 28rpx;
+  color: #999;
+}
