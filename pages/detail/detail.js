@@ -1,8 +1,8 @@
 // pages/detail/detail.js
-const hotDishes = require('../../data/hot-dishes.json')
-const coldDishes = require('../../data/cold-dishes.json')
-const soups = require('../../data/soups.json')
-const desserts = require('../../data/desserts.json')
+const hotDishes = require('../../data/hot-dishes.js')
+const coldDishes = require('../../data/cold-dishes.js')
+const soups = require('../../data/soups.js')
+const desserts = require('../../data/desserts.js')
 
 Page({
   data: {

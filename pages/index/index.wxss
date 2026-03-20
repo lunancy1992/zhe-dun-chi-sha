@@ -45,6 +45,35 @@
   font-weight: 500;
 }
 
+/* 菜系切换栏 */
+.cuisine-bar {
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+  padding: 16rpx 0;
+}
+
+.cuisine-scroll {
+  white-space: nowrap;
+  display: flex;
+  padding: 0 20rpx;
+}
+
+.cuisine-item {
+  display: inline-block;
+  padding: 10rpx 24rpx;
+  font-size: 26rpx;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 30rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.cuisine-item.active {
+  background-color: #FF6B35;
+  color: #fff;
+}
+
 /* 右侧内容区 */
 .main-content {
   flex: 1;
@@ -131,6 +160,7 @@
 /* 菜品列表 */
 .dish-list {
   flex: 1;
+  height: 0; /* 添加这个让 flex: 1 生效 */
   padding: 20rpx;
 }
 

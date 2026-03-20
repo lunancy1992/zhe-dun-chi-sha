@@ -3,11 +3,11 @@
   <!-- 左侧分类栏 -->
   <view class="sidebar">
     <view
-      wx:for="{{categories}}"
+      wx:for="{{mainCategories}}"
       wx:key="key"
-      class="category-item {{currentCategory === item.key ? 'active' : ''}}"
+      class="category-item {{currentMainCategory === item.key ? 'active' : ''}}"
       data-category="{{item.key}}"
-      bindtap="switchCategory"
+      bindtap="switchMainCategory"
     >
       <text class="category-icon">{{item.icon}}</text>
       <text class="category-name">{{item.name}}</text>
@@ -16,6 +16,28 @@
 
   <!-- 右侧内容区 -->
   <view class="main-content">
+    <!-- 菜系切换（仅热菜显示） -->
+    <view class="cuisine-bar" wx:if="{{currentMainCategory === 'hot' && cuisineCategories.length > 0}}">
+      <scroll-view scroll-x class="cuisine-scroll">
+        <view
+          class="cuisine-item {{currentCuisine === '' ? 'active' : ''}}"
+          data-cuisine=""
+          bindtap="switchCuisine"
+        >
+          全部
+        </view>
+        <view
+          wx:for="{{cuisineCategories}}"
+          wx:key="id"
+          class="cuisine-item {{currentCuisine === item.id ? 'active' : ''}}"
+          data-cuisine="{{item.id}}"
+          bindtap="switchCuisine"
+        >
+          {{item.name}}
+        </view>
+      </scroll-view>
+    </view>
+
     <!-- 顶部筛选栏 -->
     <view class="filter-bar">
       <view class="filter-left">
