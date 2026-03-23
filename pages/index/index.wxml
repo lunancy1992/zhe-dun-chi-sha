@@ -1,5 +1,63 @@
 <!--pages/index/index.wxml-->
-<view class="container">
+<view class="page">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索菜名..."
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+        bindconfirm="onSearchConfirm"
+      />
+      <text wx:if="{{searchKeyword}}" class="search-clear" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view wx:if="{{isSearching}}" class="search-results">
+    <view class="search-result-header">
+      <text class="dish-count">找到 {{searchResults.length}} 道菜</text>
+    </view>
+    <scroll-view scroll-y class="search-result-list">
+      <view
+        wx:for="{{searchResults}}"
+        wx:key="id"
+        class="dish-card"
+        data-dish="{{item}}"
+        data-category="{{item.categoryKey}}"
+        bindtap="goToSearchDetail"
+      >
+        <image class="dish-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="dish-info">
+          <text class="dish-name">{{item.name}}</text>
+          <view class="dish-meta">
+            <text class="dish-category-tag">{{item.categoryName}}</text>
+            <view class="dish-tags" wx:if="{{item.tags && item.tags.length > 0}}">
+              <text
+                wx:for="{{item.tags}}"
+                wx:for-item="tag"
+                wx:key="*this"
+                class="dish-tag tag-{{tag === '偏辣' ? 'spicy' : tag === '偏酸' ? 'sour' : 'sweet'}}"
+              >
+                {{tag}}
+              </text>
+            </view>
+          </view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+      <view wx:if="{{searchResults.length === 0}}" class="empty-state">
+        <text class="empty-icon">🔍</text>
+        <text class="empty-text">没有找到相关菜品</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 正常浏览内容 -->
+  <view class="container" wx:else>
   <!-- 左侧分类栏 -->
   <view class="sidebar">
     <view
@@ -99,5 +157,6 @@
         <text class="empty-text">暂无符合条件的菜品</text>
       </view>
     </scroll-view>
+  </view>
   </view>
 </view>

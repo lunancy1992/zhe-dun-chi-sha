@@ -6,6 +6,8 @@ const hotDishesData = require('../../data/hot-dishes.js')
 const coldDishes = require('../../data/cold-dishes.js')
 const soups = require('../../data/soups.js')
 const desserts = require('../../data/desserts.js')
+const pastaDishes = require('../../data/pasta-dishes.js')
+const noodleDishes = require('../../data/noodle-dishes.js')
 
 Page({
   data: {
@@ -14,7 +16,9 @@ Page({
       { key: 'hot', name: '热菜', icon: '🔥' },
       { key: 'cold', name: '凉菜', icon: '🥗' },
       { key: 'soup', name: '汤', icon: '🍲' },
-      { key: 'dessert', name: '甜品', icon: '🍰' }
+      { key: 'dessert', name: '甜品', icon: '🍰' },
+      { key: 'pasta', name: '面食', icon: '🥟' },
+      { key: 'noodle', name: '面条', icon: '🍜' }
     ],
     currentMainCategory: 'hot',
 
@@ -27,7 +31,9 @@ Page({
       hot: hotDishesData.dishes || [],
       cold: coldDishes.dishes || [],
       soup: soups.dishes || [],
-      dessert: desserts.dishes || []
+      dessert: desserts.dishes || [],
+      pasta: pastaDishes.dishes || [],
+      noodle: noodleDishes.dishes || []
     },
 
     filterTags: [
@@ -35,7 +41,20 @@ Page({
       { key: 'sour', name: '偏酸', selected: false },
       { key: 'sweet', name: '偏甜', selected: false }
     ],
-    showFilter: false
+    showFilter: false,
+
+    // 搜索
+    searchKeyword: '',
+    isSearching: false,
+    searchResults: [],
+    categoryNameMap: {
+      hot: '热菜',
+      cold: '凉菜',
+      soup: '汤',
+      dessert: '甜品',
+      pasta: '面食',
+      noodle: '面条'
+    }
   },
 
   onLoad() {
@@ -110,6 +129,57 @@ Page({
     })
     this.setData({ filterTags })
     this.updateDishes()
+  },
+
+  // 搜索输入
+  onSearchInput(e) {
+    const keyword = e.detail.value.trim()
+    this.setData({ searchKeyword: keyword })
+    if (keyword) {
+      this.doSearch(keyword)
+    } else {
+      this.setData({ isSearching: false, searchResults: [] })
+    }
+  },
+
+  onSearchConfirm(e) {
+    const keyword = e.detail.value.trim()
+    if (keyword) {
+      this.doSearch(keyword)
+    }
+  },
+
+  doSearch(keyword) {
+    const { allDishes, categoryNameMap } = this.data
+    const results = []
+    const kw = keyword.toLowerCase()
+
+    Object.keys(allDishes).forEach(categoryKey => {
+      const dishes = allDishes[categoryKey] || []
+      dishes.forEach(dish => {
+        if (dish.name.toLowerCase().includes(kw)) {
+          results.push(Object.assign({}, dish, {
+            categoryKey: categoryKey,
+            categoryName: categoryNameMap[categoryKey] || categoryKey
+          }))
+        }
+      })
+    })
+
+    this.setData({ isSearching: true, searchResults: results })
+  },
+
+  clearSearch() {
+    this.setData({ searchKeyword: '', isSearching: false, searchResults: [] })
+  },
+
+  // 搜索结果跳转详情
+  goToSearchDetail(e) {
+    const dish = e.currentTarget.dataset.dish
+    const category = e.currentTarget.dataset.category
+    wx.navigateTo({
+      url: `/pages/detail/detail?id=${dish.id}&category=${category}`
+    })
   },
 
   // 跳转详情页

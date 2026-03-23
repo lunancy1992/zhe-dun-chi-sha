@@ -3,6 +3,8 @@ const hotDishes = require('../../data/hot-dishes.js')
 const coldDishes = require('../../data/cold-dishes.js')
 const soups = require('../../data/soups.js')
 const desserts = require('../../data/desserts.js')
+const pastaDishes = require('../../data/pasta-dishes.js')
+const noodleDishes = require('../../data/noodle-dishes.js')
 
 Page({
   data: {
@@ -26,6 +28,12 @@ Page({
         break
       case 'dessert':
         dishes = desserts.dishes
+        break
+      case 'pasta':
+        dishes = pastaDishes.dishes
+        break
+      case 'noodle':
+        dishes = noodleDishes.dishes
         break
       default:
         dishes = hotDishes.dishes
